@@ -32,11 +32,19 @@ public class LoggingUtils {
 
     public String logData(Object object) {
         try {
-            return mapper.writeValueAsString(object).replaceAll("\\\\", "");
+            String response = mapper.writeValueAsString(object);
+            return clearJson(response);
         } catch (JsonProcessingException e) {
             log.error("Error logging data: " + e.getMessage());
         }
         return "";
+    }
+
+    private String clearJson(String json) {
+        return json
+                .replaceAll("\\\\", "")
+                .replaceAll(":\"\\[\\{", ":[{")
+                .replaceAll("]\"", "]");
     }
 
 }
