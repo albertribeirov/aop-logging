@@ -18,12 +18,14 @@ public class Log {
 
     @Before("@annotation(br.com.performance.aspect.Monitor)")
     public void logParameters(JoinPoint joinPoint) {
+
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 
         var object = new LinkedHashMap<>();
         object.put("class", signature.getDeclaringTypeName());
         object.put("method", signature.getMethod().getName());
         object.put("args", joinPoint.getArgs());
+
 
         log.info("{}", LoggingUtils.logData(object));
 
