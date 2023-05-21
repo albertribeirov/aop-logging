@@ -26,7 +26,7 @@ public class UserController {
     @GetMapping("/users")
     @ResponseStatus(HttpStatus.OK)
     @Monitor
-    public List<User> getUsers() {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
@@ -35,6 +35,7 @@ public class UserController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
+    @ResponseStatus(HttpStatus.CREATED)
     @Monitor(logParameters = true)
     public ResponseEntity<User> createUser(@RequestBody User user) {
         return ResponseEntity.accepted().body(userRepository.save(user));
