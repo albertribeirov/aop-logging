@@ -25,7 +25,7 @@ public class UserController {
 
     @GetMapping("/users")
     @ResponseStatus(HttpStatus.OK)
-    @Monitor(logParameters = true)
+    @Monitor
     public List<User> getUsers() {
         return userRepository.findAll();
     }

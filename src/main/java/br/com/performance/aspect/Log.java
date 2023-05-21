@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
+import java.util.LinkedHashMap;
 
 @Aspect
 @Component
@@ -20,11 +20,16 @@ public class Log {
     public void logParameters(JoinPoint joinPoint) {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 
-        log.info("{}.{}({})",
-                signature.getDeclaringTypeName(),
-                signature.getMethod().getName(),
-                Arrays.toString(joinPoint.getArgs())
-        );
+        var object = new LinkedHashMap<>();
+        object.put("class", signature.getDeclaringTypeName());
+        object.put("method", signature.getMethod().getName());
+        object.put("args", joinPoint.getArgs());
+
+        log.info("{}", LoggingUtils.logData(object));
 
     }
 }
+
+
+
+
