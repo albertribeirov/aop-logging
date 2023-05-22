@@ -27,7 +27,7 @@ public class Log {
         object.put("args", joinPoint.getArgs());
 
 
-        log.info("{}", LoggingUtils.logData(object));
+        log.info("{}", LogPrinter.logData(object));
 
     }
 }

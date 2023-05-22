@@ -18,18 +18,18 @@ public class LoggingInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         request.setAttribute(START_TIME, System.currentTimeMillis());
         StringBuilder uriBuilder = new StringBuilder(request.getRequestURI());
-        LoggingUtils.addQueryStringIfExists(request, uriBuilder);
+        LogPrinter.addQueryStringIfExists(request, uriBuilder);
 
         LogDetail logDetail = LogDetail.builder()
                 .httpMessage(LogDetail.REQUEST)
                 .uri(uriBuilder.toString())
                 .method(request.getMethod())
-                .body(LoggingUtils.getStringValue(((ContentCachingRequestWrapper) request).getContentAsByteArray(), request.getCharacterEncoding()))
+                .body(LogPrinter.getStringValue(((ContentCachingRequestWrapper) request).getContentAsByteArray(), request.getCharacterEncoding()))
                 .statusCode(response.getStatus())
                 .build();
 
 
-        log.info("{}", LoggingUtils.logData(logDetail));
+        log.info("{}", LogPrinter.logData(logDetail));
         return true;
     }
 
@@ -38,19 +38,19 @@ public class LoggingInterceptor implements HandlerInterceptor {
         Long startTime = (Long) request.getAttribute(START_TIME);
         StringBuilder uriBuilder = new StringBuilder(request.getRequestURI());
 
-        LoggingUtils.addQueryStringIfExists(request, uriBuilder);
+        LogPrinter.addQueryStringIfExists(request, uriBuilder);
 
         LogDetail logDetail = LogDetail.builder()
                 .httpMessage(LogDetail.RESPONSE)
                 .uri(uriBuilder.toString())
                 .method(request.getMethod())
-                .body(LoggingUtils.getStringValue(((ContentCachingResponseWrapper) response).getContentAsByteArray(), request.getCharacterEncoding()))
+                .body(LogPrinter.getStringValue(((ContentCachingResponseWrapper) response).getContentAsByteArray(), request.getCharacterEncoding()))
                 .statusCode(response.getStatus())
                 .duration(System.currentTimeMillis() - startTime)
                 .exception(ex)
                 .build();
 
-        log.info("{}", LoggingUtils.logData(logDetail));
+        log.info("{}", LogPrinter.logData(logDetail));
     }
 
 
