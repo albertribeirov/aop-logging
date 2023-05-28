@@ -25,6 +25,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation group: 'br.com.six2six', name: 'fixture-factory', version: '3.1.0'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.7.0'
+    implementation 'org.json:json:20230227'
+
 }
 
 tasks.named('test') {
