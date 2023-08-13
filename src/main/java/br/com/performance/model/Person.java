@@ -10,28 +10,22 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Getter
 @Setter
 @Builder
-public class User {
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-
     private String firstName;
     private String lastName;
-    private Short age;
+    private Integer age;
 
 }
-
-
-
-
-
-
-

@@ -2,11 +2,11 @@ package br.com.performance.aspect;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 
@@ -22,14 +22,8 @@ public class LogPrinter {
         }
     }
 
-    public String getStringValue(byte[] contentAsByteArray, String characterEncoding) {
-        try {
-            return new String(contentAsByteArray, characterEncoding);
-        } catch (UnsupportedEncodingException ex) {
-            logErrorAsJson(ex, "Error obtaining body from request or response");
-
-        }
-        return "";
+    public String getStringValue(byte[] contentAsByteArray) {
+        return new String(contentAsByteArray, StandardCharsets.UTF_8);
     }
 
     private static void logErrorAsJson(Exception ex, String message) {

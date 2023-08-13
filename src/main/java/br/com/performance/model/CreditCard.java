@@ -11,27 +11,30 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @Builder
-public class User {
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+public class CreditCard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    private String firstName;
-    private String lastName;
-    private Short age;
+    private String number;
+    private String name;
+    private LocalDate expirationDate;
+    private String securityCode;
+    private CreditCardType type;
 
+    public enum CreditCardType {
+        VISA,
+        MASTERCARD,
+        AMERICAN_EXPRESS,
+        DINERS_CLUB
+    }
 }
-
-
-
-
-
-
-

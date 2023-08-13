@@ -1,8 +1,8 @@
 package br.com.performance.controller;
 
 import br.com.performance.aspect.Monitor;
-import br.com.performance.model.User;
-import br.com.performance.repository.UserRepository;
+import br.com.performance.model.Person;
+import br.com.performance.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,26 +19,26 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-public class UserController {
+public class PersonController {
 
-    private final UserRepository userRepository;
+    private final PersonService personService;
 
-    @GetMapping("/users")
+    @GetMapping("/persons")
     @ResponseStatus(HttpStatus.OK)
     @Monitor
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<Person> getAllUsers() {
+        return personService.findAll();
     }
 
     @PostMapping(
-            value = "/user",
+            value = "/person",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ResponseStatus(HttpStatus.CREATED)
     @Monitor(logParameters = true)
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        return ResponseEntity.accepted().body(userRepository.save(user));
+    public ResponseEntity<Person> createUser(@RequestBody Person person) {
+        return ResponseEntity.accepted().body(personService.save(person));
     }
 
 }
